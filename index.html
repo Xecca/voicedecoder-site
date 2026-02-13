@@ -216,6 +216,31 @@
         .hero {
             padding: 140px 0 80px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.08) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .hero > .container {
+            position: relative;
+            z-index: 1;
         }
 
         .badge {
@@ -387,6 +412,31 @@
         .mac-content p {
             color: var(--text-secondary);
             font-size: 0.9rem;
+        }
+
+        .typing-demo {
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            min-height: 1.6em;
+            text-align: left;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.15em;
+            background: var(--accent);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.8s ease-in-out infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* ==================== HOW IT WORKS ==================== */
@@ -825,6 +875,45 @@
             color: var(--text-primary);
         }
 
+        /* ==================== BACK TO TOP ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background 0.2s, color 0.2s;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+        }
+
         /* ==================== SCROLL ANIMATIONS ==================== */
         .animate {
             opacity: 0;
@@ -955,6 +1044,23 @@
             .section-header h2 {
                 font-size: 1.75rem;
             }
+
+            .hero-glow {
+                width: 400px;
+                height: 400px;
+                top: -20%;
+            }
+
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .typing-demo {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -1014,6 +1120,7 @@
     <main>
         <!-- Hero -->
         <section class="hero">
+            <div class="hero-glow"></div>
             <div class="container">
                 <div class="badge">
                     <span class="badge-dot"></span>
@@ -1061,7 +1168,7 @@
                             <div class="waveform-bar"></div>
                             <div class="waveform-bar"></div>
                         </div>
-                        <p data-i18n="preview_placeholder">App screenshot coming soon</p>
+                        <div class="typing-demo" id="typingDemo"><span class="typing-cursor"></span></div>
                     </div>
                 </div>
             </div>
@@ -1425,6 +1532,13 @@
         </div>
     </footer>
 
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
+
     <script>
         // ==================== TRANSLATIONS ====================
         const i18n = {
@@ -1437,7 +1551,6 @@
                 hero_subtitle: "Real-time speech transcription in Russian and English. Powered by whisper.cpp, runs entirely on your Mac. No internet required.",
                 hero_cta_download: "Download Free Trial",
                 hero_cta_pricing: "View Pricing",
-                preview_placeholder: "App screenshot coming soon",
                 hiw_title: "How It Works",
                 hiw_subtitle: "Three steps to start transcribing",
                 hiw_step1_title: "Press the Hotkey",
@@ -1532,7 +1645,6 @@
                 hero_subtitle: "Транскрипция речи в реальном времени на русском и английском. Работает на whisper.cpp, полностью на вашем Mac. Без интернета.",
                 hero_cta_download: "Скачать бесплатно",
                 hero_cta_pricing: "Смотреть цены",
-                preview_placeholder: "Скриншот приложения скоро появится",
                 hiw_title: "Как это работает",
                 hiw_subtitle: "Три шага до начала транскрипции",
                 hiw_step1_title: "Нажмите хоткей",
@@ -1700,6 +1812,79 @@
 
         document.querySelectorAll('.animate').forEach(el => {
             observer.observe(el);
+        });
+
+        // ==================== TYPING ANIMATION ====================
+        const typingPhrases = {
+            en: [
+                "Voice Decoder converts your speech to text in real-time...",
+                "All processing happens locally on your Mac.",
+                "No internet connection required — 100% offline.",
+                "Press ⇧⌘Space and start speaking naturally.",
+                "Supports Russian and English with auto-detection."
+            ],
+            ru: [
+                "Voice Decoder конвертирует речь в текст в реальном времени...",
+                "Вся обработка происходит локально на вашем Mac.",
+                "Интернет не нужен — 100% офлайн.",
+                "Нажмите ⇧⌘Space и начните говорить.",
+                "Поддержка русского и английского с автоопределением."
+            ]
+        };
+
+        (function initTypingAnimation() {
+            const el = document.getElementById('typingDemo');
+            if (!el) return;
+
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let pauseTimeout = null;
+
+            function type() {
+                const phrases = typingPhrases[currentLang] || typingPhrases.en;
+                const phrase = phrases[phraseIndex % phrases.length];
+
+                if (!isDeleting) {
+                    charIndex++;
+                    if (charIndex > phrase.length) {
+                        isDeleting = true;
+                        pauseTimeout = setTimeout(type, 2000);
+                        return;
+                    }
+                } else {
+                    charIndex--;
+                    if (charIndex < 0) {
+                        charIndex = 0;
+                        isDeleting = false;
+                        phraseIndex++;
+                        pauseTimeout = setTimeout(type, 400);
+                        return;
+                    }
+                }
+
+                el.innerHTML = phrase.substring(0, charIndex) + '<span class="typing-cursor"></span>';
+
+                const speed = isDeleting ? 25 : 45;
+                pauseTimeout = setTimeout(type, speed);
+            }
+
+            type();
+        })();
+
+        // ==================== BACK TO TOP ====================
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 600) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
