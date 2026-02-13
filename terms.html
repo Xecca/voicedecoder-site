@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — Voice Decoder</title>
+    <meta name="description" content="Voice Decoder Terms of Service. Terms and conditions for using the Voice Decoder macOS application.">
+    <link rel="canonical" href="https://voicedecoder.redorcdron.space/terms">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Cpath d='M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z' fill='none' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M21 14v1a5 5 0 0 1-10 0v-1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='20' x2='16' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='23' x2='18.5' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-purple: #a855f7;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 16px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        header .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text-primary); }
+
+        .legal-content {
+            padding: 120px 0 80px;
+        }
+
+        .legal-content h1 {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .legal-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .legal-content h2 {
+            font-size: 1.3rem;
+            margin-top: 40px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content p,
+        .legal-content ul {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .legal-content ul {
+            padding-left: 24px;
+        }
+
+        .legal-content li {
+            margin-bottom: 8px;
+        }
+
+        .legal-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            color: var(--accent-hover);
+        }
+
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer .container {
+            max-width: 1200px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .legal-content h1 { font-size: 1.75rem; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366f1"/>
+                            <stop offset="1" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="32" height="32" rx="7" fill="url(#logoGrad)"/>
+                    <path d="M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <path d="M21 14v1a5 5 0 0 1-10 0v-1" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    <line x1="16" y1="20" x2="16" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="13.5" y1="23" x2="18.5" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Voice Decoder
+            </a>
+            <div class="header-right">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <a href="/" class="back-link" data-i18n="back_home">&larr; Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="legal-content">
+        <div class="container">
+            <h1 data-i18n="title">Terms of Service</h1>
+            <p class="legal-date" data-i18n="date">Effective date: February 14, 2026</p>
+
+            <h2 data-i18n="h_acceptance">1. Acceptance of Terms</h2>
+            <p data-i18n="p_acceptance">By downloading, installing, or using Voice Decoder ("the App"), you agree to be bound by these Terms of Service. If you do not agree, do not use the App.</p>
+
+            <h2 data-i18n="h_license">2. License</h2>
+            <p data-i18n="p_license">We grant you a non-exclusive, non-transferable, revocable license to use the App on your personal Mac computer, subject to these Terms.</p>
+            <ul>
+                <li data-i18n="li_free_trial"><strong>Free Trial</strong> — 7-day trial with full functionality, no payment required</li>
+                <li data-i18n="li_pro"><strong>Pro License</strong> — one-time purchase of $29 for unlimited use on one Mac</li>
+            </ul>
+
+            <h2 data-i18n="h_restrictions">3. Restrictions</h2>
+            <p data-i18n="p_restrictions">You may not:</p>
+            <ul>
+                <li data-i18n="li_reverse">Reverse engineer, decompile, or disassemble the App</li>
+                <li data-i18n="li_redistribute">Redistribute, sublicense, or sell the App</li>
+                <li data-i18n="li_circumvent">Circumvent any license verification mechanisms</li>
+                <li data-i18n="li_illegal">Use the App for any illegal purpose</li>
+            </ul>
+
+            <h2 data-i18n="h_ip">4. Intellectual Property</h2>
+            <p data-i18n="p_ip">The App, including its design, code, and assets, is protected by copyright. All rights not expressly granted are reserved. The whisper.cpp engine is used under the MIT License.</p>
+
+            <h2 data-i18n="h_disclaimer">5. Disclaimer of Warranties</h2>
+            <p data-i18n="p_disclaimer">The App is provided "as is" without warranties of any kind. We do not guarantee that transcriptions will be 100% accurate or that the App will be error-free. Transcription quality depends on audio quality, accent, and other factors.</p>
+
+            <h2 data-i18n="h_liability">6. Limitation of Liability</h2>
+            <p data-i18n="p_liability">To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of the App. Our total liability shall not exceed the amount you paid for the Pro License.</p>
+
+            <h2 data-i18n="h_requirements">7. System Requirements</h2>
+            <p data-i18n="p_requirements">The App requires macOS 14 Sonoma or later and an Apple Silicon Mac (M1 or later). We do not guarantee compatibility with other configurations.</p>
+
+            <h2 data-i18n="h_updates">8. Updates</h2>
+            <p data-i18n="p_updates">Pro License includes lifetime updates. We reserve the right to modify, suspend, or discontinue the App at any time.</p>
+
+            <h2 data-i18n="h_termination">9. Termination</h2>
+            <p data-i18n="p_termination">We may terminate your license if you violate these Terms. Upon termination, you must delete the App and all copies.</p>
+
+            <h2 data-i18n="h_changes">10. Changes to Terms</h2>
+            <p data-i18n="p_changes">We may update these Terms from time to time. Continued use of the App after changes constitutes acceptance of the updated Terms.</p>
+
+            <h2 data-i18n="h_contact">11. Contact</h2>
+            <p data-i18n="p_contact">For questions about these Terms, contact us at <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright" data-i18n="footer_copyright">&copy; 2026 Voice Decoder. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="mailto:support@voicedecoder.redorcdron.space" data-i18n="footer_support">Support</a>
+                    <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+                    <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const i18n = {
+            en: {
+                back_home: "\u2190 Back to Home",
+                title: "Terms of Service",
+                date: "Effective date: February 14, 2026",
+                h_acceptance: "1. Acceptance of Terms",
+                p_acceptance: 'By downloading, installing, or using Voice Decoder ("the App"), you agree to be bound by these Terms of Service. If you do not agree, do not use the App.',
+                h_license: "2. License",
+                p_license: "We grant you a non-exclusive, non-transferable, revocable license to use the App on your personal Mac computer, subject to these Terms.",
+                li_free_trial: "<strong>Free Trial</strong> \u2014 7-day trial with full functionality, no payment required",
+                li_pro: "<strong>Pro License</strong> \u2014 one-time purchase of $29 for unlimited use on one Mac",
+                h_restrictions: "3. Restrictions",
+                p_restrictions: "You may not:",
+                li_reverse: "Reverse engineer, decompile, or disassemble the App",
+                li_redistribute: "Redistribute, sublicense, or sell the App",
+                li_circumvent: "Circumvent any license verification mechanisms",
+                li_illegal: "Use the App for any illegal purpose",
+                h_ip: "4. Intellectual Property",
+                p_ip: "The App, including its design, code, and assets, is protected by copyright. All rights not expressly granted are reserved. The whisper.cpp engine is used under the MIT License.",
+                h_disclaimer: "5. Disclaimer of Warranties",
+                p_disclaimer: 'The App is provided "as is" without warranties of any kind. We do not guarantee that transcriptions will be 100% accurate or that the App will be error-free. Transcription quality depends on audio quality, accent, and other factors.',
+                h_liability: "6. Limitation of Liability",
+                p_liability: "To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of the App. Our total liability shall not exceed the amount you paid for the Pro License.",
+                h_requirements: "7. System Requirements",
+                p_requirements: "The App requires macOS 14 Sonoma or later and an Apple Silicon Mac (M1 or later). We do not guarantee compatibility with other configurations.",
+                h_updates: "8. Updates",
+                p_updates: "Pro License includes lifetime updates. We reserve the right to modify, suspend, or discontinue the App at any time.",
+                h_termination: "9. Termination",
+                p_termination: "We may terminate your license if you violate these Terms. Upon termination, you must delete the App and all copies.",
+                h_changes: "10. Changes to Terms",
+                p_changes: "We may update these Terms from time to time. Continued use of the App after changes constitutes acceptance of the updated Terms.",
+                h_contact: "11. Contact",
+                p_contact: 'For questions about these Terms, contact us at <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.',
+                footer_copyright: "\u00a9 2026 Voice Decoder. All rights reserved.",
+                footer_support: "Support",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service"
+            },
+            ru: {
+                back_home: "\u2190 На главную",
+                title: "Условия использования",
+                date: "Дата вступления в силу: 14 февраля 2026",
+                h_acceptance: "1. Принятие условий",
+                p_acceptance: "Загружая, устанавливая или используя Voice Decoder (\u00abПриложение\u00bb), вы соглашаетесь с настоящими Условиями использования. Если вы не согласны, не используйте Приложение.",
+                h_license: "2. Лицензия",
+                p_license: "Мы предоставляем вам неисключительную, непередаваемую, отзывную лицензию на использование Приложения на вашем личном Mac в соответствии с настоящими Условиями.",
+                li_free_trial: "<strong>Пробный период</strong> \u2014 7 дней с полной функциональностью, оплата не требуется",
+                li_pro: "<strong>Pro-лицензия</strong> \u2014 разовая покупка за $29 для неограниченного использования на одном Mac",
+                h_restrictions: "3. Ограничения",
+                p_restrictions: "Вы не можете:",
+                li_reverse: "Реверс-инжинирить, декомпилировать или дизассемблировать Приложение",
+                li_redistribute: "Распространять, сублицензировать или продавать Приложение",
+                li_circumvent: "Обходить механизмы проверки лицензии",
+                li_illegal: "Использовать Приложение в незаконных целях",
+                h_ip: "4. Интеллектуальная собственность",
+                p_ip: "Приложение, включая его дизайн, код и ресурсы, защищено авторским правом. Все права, не предоставленные явно, сохраняются. Движок whisper.cpp используется по лицензии MIT.",
+                h_disclaimer: "5. Отказ от гарантий",
+                p_disclaimer: "Приложение предоставляется \u00abкак есть\u00bb без каких-либо гарантий. Мы не гарантируем 100% точность транскрипций или безошибочную работу. Качество транскрипции зависит от качества аудио, акцента и других факторов.",
+                h_liability: "6. Ограничение ответственности",
+                p_liability: "В максимальной степени, допускаемой законом, мы не несём ответственности за косвенные, случайные, особые или последующие убытки, связанные с использованием Приложения. Наша общая ответственность не превышает сумму, уплаченную за Pro-лицензию.",
+                h_requirements: "7. Системные требования",
+                p_requirements: "Приложение требует macOS 14 Sonoma или новее и Mac на Apple Silicon (M1 или новее). Мы не гарантируем совместимость с другими конфигурациями.",
+                h_updates: "8. Обновления",
+                p_updates: "Pro-лицензия включает пожизненные обновления. Мы оставляем за собой право изменять, приостанавливать или прекращать работу Приложения в любое время.",
+                h_termination: "9. Прекращение действия",
+                p_termination: "Мы можем прекратить действие вашей лицензии при нарушении настоящих Условий. При прекращении вы должны удалить Приложение и все его копии.",
+                h_changes: "10. Изменение условий",
+                p_changes: "Мы можем обновлять настоящие Условия. Продолжение использования Приложения после изменений означает принятие обновлённых Условий.",
+                h_contact: "11. Контакты",
+                p_contact: 'По вопросам об этих Условиях свяжитесь с нами: <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.',
+                footer_copyright: "\u00a9 2026 Voice Decoder. Все права защищены.",
+                footer_support: "Поддержка",
+                footer_privacy: "Политика конфиденциальности",
+                footer_terms: "Условия использования"
+            }
+        };
+
+        let currentLang = localStorage.getItem('vd_lang') || 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('vd_lang', lang);
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.title = lang === 'ru'
+                ? 'Условия использования — Voice Decoder'
+                : 'Terms of Service — Voice Decoder';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+            });
+            if (currentLang !== 'en') switchLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>

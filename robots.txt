@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://voicedecoder.redorcdron.space/sitemap.xml

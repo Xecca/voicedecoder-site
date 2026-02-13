@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Voice Decoder</title>
+    <meta name="description" content="Voice Decoder Privacy Policy. Learn how we handle your data — spoiler: everything stays on your Mac.">
+    <link rel="canonical" href="https://voicedecoder.redorcdron.space/privacy">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Cpath d='M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z' fill='none' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M21 14v1a5 5 0 0 1-10 0v-1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='20' x2='16' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='23' x2='18.5' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-purple: #a855f7;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 16px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        header .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text-primary); }
+
+        /* Content */
+        .legal-content {
+            padding: 120px 0 80px;
+        }
+
+        .legal-content h1 {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .legal-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .legal-content h2 {
+            font-size: 1.3rem;
+            margin-top: 40px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content p,
+        .legal-content ul {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .legal-content ul {
+            padding-left: 24px;
+        }
+
+        .legal-content li {
+            margin-bottom: 8px;
+        }
+
+        .legal-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            color: var(--accent-hover);
+        }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer .container {
+            max-width: 1200px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .legal-content h1 { font-size: 1.75rem; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366f1"/>
+                            <stop offset="1" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="32" height="32" rx="7" fill="url(#logoGrad)"/>
+                    <path d="M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <path d="M21 14v1a5 5 0 0 1-10 0v-1" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    <line x1="16" y1="20" x2="16" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="13.5" y1="23" x2="18.5" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Voice Decoder
+            </a>
+            <div class="header-right">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <a href="/" class="back-link" data-i18n="back_home">&larr; Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="legal-content">
+        <div class="container">
+            <h1 data-i18n="title">Privacy Policy</h1>
+            <p class="legal-date" data-i18n="date">Effective date: February 14, 2026</p>
+
+            <div class="highlight-box">
+                <p data-i18n="tldr"><strong>TL;DR:</strong> Voice Decoder processes everything locally on your Mac. We do not collect, transmit, or store any of your voice data or transcriptions. Period.</p>
+            </div>
+
+            <h2 data-i18n="h_overview">1. Overview</h2>
+            <p data-i18n="p_overview">Voice Decoder ("the App") is a native macOS application for real-time voice-to-text transcription. This Privacy Policy explains how the App handles your data.</p>
+
+            <h2 data-i18n="h_data_collection">2. Data We Collect</h2>
+            <p data-i18n="p_data_collection">We do not collect any personal data. The App:</p>
+            <ul>
+                <li data-i18n="li_no_audio">Does not record, store, or transmit your audio</li>
+                <li data-i18n="li_no_text">Does not store or transmit your transcriptions</li>
+                <li data-i18n="li_no_analytics">Does not include analytics, tracking, or telemetry</li>
+                <li data-i18n="li_no_network">Does not make any network requests</li>
+            </ul>
+
+            <h2 data-i18n="h_local">3. Local Processing</h2>
+            <p data-i18n="p_local">All speech recognition is performed entirely on your Mac using the whisper.cpp engine. Audio from your microphone is processed in real-time in memory and is never written to disk or sent over the network.</p>
+
+            <h2 data-i18n="h_permissions">4. Permissions</h2>
+            <p data-i18n="p_permissions">The App requires the following macOS permissions:</p>
+            <ul>
+                <li data-i18n="li_mic"><strong>Microphone</strong> — to capture your voice for real-time transcription</li>
+                <li data-i18n="li_accessibility"><strong>Accessibility</strong> — to insert transcribed text at your cursor position and register global hotkeys</li>
+            </ul>
+            <p data-i18n="p_permissions_note">These permissions are used solely for the App's core functionality. No data obtained through these permissions is collected or shared.</p>
+
+            <h2 data-i18n="h_storage">5. Data Storage</h2>
+            <p data-i18n="p_storage">The App stores only its settings and downloaded AI models locally in <code>~/Library/Application Support/VoiceDecoder/</code>. No user-generated content (audio, transcriptions) is stored.</p>
+
+            <h2 data-i18n="h_third_party">6. Third-Party Services</h2>
+            <p data-i18n="p_third_party">Voice Decoder does not use any third-party services, SDKs, or APIs. The App works 100% offline.</p>
+
+            <h2 data-i18n="h_website">7. Website</h2>
+            <p data-i18n="p_website">This website (voicedecoder.redorcdron.space) is hosted on GitHub Pages. GitHub may collect standard server logs (IP address, browser type). We do not use cookies, analytics, or tracking scripts on this website.</p>
+
+            <h2 data-i18n="h_changes">8. Changes to This Policy</h2>
+            <p data-i18n="p_changes">We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+
+            <h2 data-i18n="h_contact">9. Contact</h2>
+            <p data-i18n="p_contact">If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright" data-i18n="footer_copyright">&copy; 2026 Voice Decoder. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="mailto:support@voicedecoder.redorcdron.space" data-i18n="footer_support">Support</a>
+                    <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+                    <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const i18n = {
+            en: {
+                back_home: "\u2190 Back to Home",
+                title: "Privacy Policy",
+                date: "Effective date: February 14, 2026",
+                tldr: "<strong>TL;DR:</strong> Voice Decoder processes everything locally on your Mac. We do not collect, transmit, or store any of your voice data or transcriptions. Period.",
+                h_overview: "1. Overview",
+                p_overview: 'Voice Decoder ("the App") is a native macOS application for real-time voice-to-text transcription. This Privacy Policy explains how the App handles your data.',
+                h_data_collection: "2. Data We Collect",
+                p_data_collection: "We do not collect any personal data. The App:",
+                li_no_audio: "Does not record, store, or transmit your audio",
+                li_no_text: "Does not store or transmit your transcriptions",
+                li_no_analytics: "Does not include analytics, tracking, or telemetry",
+                li_no_network: "Does not make any network requests",
+                h_local: "3. Local Processing",
+                p_local: "All speech recognition is performed entirely on your Mac using the whisper.cpp engine. Audio from your microphone is processed in real-time in memory and is never written to disk or sent over the network.",
+                h_permissions: "4. Permissions",
+                p_permissions: "The App requires the following macOS permissions:",
+                li_mic: "<strong>Microphone</strong> \u2014 to capture your voice for real-time transcription",
+                li_accessibility: "<strong>Accessibility</strong> \u2014 to insert transcribed text at your cursor position and register global hotkeys",
+                p_permissions_note: "These permissions are used solely for the App\u2019s core functionality. No data obtained through these permissions is collected or shared.",
+                h_storage: "5. Data Storage",
+                p_storage: "The App stores only its settings and downloaded AI models locally in <code>~/Library/Application Support/VoiceDecoder/</code>. No user-generated content (audio, transcriptions) is stored.",
+                h_third_party: "6. Third-Party Services",
+                p_third_party: "Voice Decoder does not use any third-party services, SDKs, or APIs. The App works 100% offline.",
+                h_website: "7. Website",
+                p_website: "This website (voicedecoder.redorcdron.space) is hosted on GitHub Pages. GitHub may collect standard server logs (IP address, browser type). We do not use cookies, analytics, or tracking scripts on this website.",
+                h_changes: "8. Changes to This Policy",
+                p_changes: "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.",
+                h_contact: "9. Contact",
+                p_contact: 'If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.',
+                footer_copyright: "\u00a9 2026 Voice Decoder. All rights reserved.",
+                footer_support: "Support",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service"
+            },
+            ru: {
+                back_home: "\u2190 На главную",
+                title: "Политика конфиденциальности",
+                date: "Дата вступления в силу: 14 февраля 2026",
+                tldr: "<strong>Кратко:</strong> Voice Decoder обрабатывает всё локально на вашем Mac. Мы не собираем, не передаём и не храним ваши голосовые данные или транскрипции. Точка.",
+                h_overview: "1. Обзор",
+                p_overview: "Voice Decoder (\u00abПриложение\u00bb) \u2014 это нативное macOS-приложение для транскрипции речи в реальном времени. Эта Политика конфиденциальности объясняет, как Приложение обрабатывает ваши данные.",
+                h_data_collection: "2. Какие данные мы собираем",
+                p_data_collection: "Мы не собираем никаких персональных данных. Приложение:",
+                li_no_audio: "Не записывает, не сохраняет и не передаёт ваш голос",
+                li_no_text: "Не сохраняет и не передаёт ваши транскрипции",
+                li_no_analytics: "Не содержит аналитики, трекинга или телеметрии",
+                li_no_network: "Не выполняет сетевых запросов",
+                h_local: "3. Локальная обработка",
+                p_local: "Всё распознавание речи выполняется полностью на вашем Mac с помощью whisper.cpp. Аудио с микрофона обрабатывается в реальном времени в памяти и никогда не записывается на диск и не отправляется по сети.",
+                h_permissions: "4. Разрешения",
+                p_permissions: "Приложение запрашивает следующие разрешения macOS:",
+                li_mic: "<strong>Микрофон</strong> \u2014 для захвата голоса при транскрипции в реальном времени",
+                li_accessibility: "<strong>Универсальный доступ</strong> \u2014 для вставки текста в позицию курсора и регистрации глобальных горячих клавиш",
+                p_permissions_note: "Эти разрешения используются исключительно для основной функциональности Приложения. Данные, полученные через эти разрешения, не собираются и не передаются.",
+                h_storage: "5. Хранение данных",
+                p_storage: "Приложение хранит только свои настройки и скачанные AI-модели локально в <code>~/Library/Application Support/VoiceDecoder/</code>. Пользовательский контент (аудио, транскрипции) не сохраняется.",
+                h_third_party: "6. Сторонние сервисы",
+                p_third_party: "Voice Decoder не использует сторонние сервисы, SDK или API. Приложение работает 100% офлайн.",
+                h_website: "7. Веб-сайт",
+                p_website: "Этот сайт (voicedecoder.redorcdron.space) размещён на GitHub Pages. GitHub может собирать стандартные серверные логи (IP-адрес, тип браузера). Мы не используем cookies, аналитику или скрипты отслеживания на этом сайте.",
+                h_changes: "8. Изменения политики",
+                p_changes: "Мы можем обновлять эту Политику конфиденциальности. Все изменения будут опубликованы на этой странице с обновлённой датой вступления в силу.",
+                h_contact: "9. Контакты",
+                p_contact: 'Если у вас есть вопросы по этой Политике конфиденциальности, свяжитесь с нами: <a href="mailto:support@voicedecoder.redorcdron.space">support@voicedecoder.redorcdron.space</a>.',
+                footer_copyright: "\u00a9 2026 Voice Decoder. Все права защищены.",
+                footer_support: "Поддержка",
+                footer_privacy: "Политика конфиденциальности",
+                footer_terms: "Условия использования"
+            }
+        };
+
+        let currentLang = localStorage.getItem('vd_lang') || 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('vd_lang', lang);
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.title = lang === 'ru'
+                ? 'Политика конфиденциальности — Voice Decoder'
+                : 'Privacy Policy — Voice Decoder';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+            });
+            if (currentLang !== 'en') switchLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>
