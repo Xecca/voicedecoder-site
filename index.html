@@ -4,10 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voice Decoder — Real-Time Voice to Text for macOS</title>
-    <meta name="description" content="Voice Decoder is a native macOS menu bar app for real-time voice-to-text transcription. Powered by whisper.cpp with support for Russian and English.">
+    <meta name="description" content="Voice Decoder is a native macOS menu bar app for real-time voice-to-text transcription. Powered by whisper.cpp, 100% offline. Russian and English.">
+    <link rel="canonical" href="https://voicedecoder.redorcdron.space/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://voicedecoder.redorcdron.space/">
+    <meta property="og:title" content="Voice Decoder — Real-Time Voice to Text for macOS">
+    <meta property="og:description" content="Native macOS menu bar app for real-time speech transcription. Powered by whisper.cpp, runs 100% offline on your Mac.">
+    <meta property="og:image" content="https://voicedecoder.redorcdron.space/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Voice Decoder — Real-Time Voice to Text for macOS">
+    <meta name="twitter:description" content="Native macOS menu bar app for real-time speech transcription. 100% offline.">
+    <meta name="twitter:image" content="https://voicedecoder.redorcdron.space/og-image.png">
+
+    <!-- Favicon (inline SVG) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Cpath d='M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z' fill='none' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M21 14v1a5 5 0 0 1-10 0v-1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='20' x2='16' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='23' x2='18.5' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Voice Decoder",
+        "operatingSystem": "macOS 14+",
+        "applicationCategory": "ProductivityApplication",
+        "offers": [
+            { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "7-day free trial" },
+            { "@type": "Offer", "price": "29", "priceCurrency": "USD", "description": "Pro License — one-time" }
+        ],
+        "description": "Native macOS menu bar app for real-time voice-to-text transcription using whisper.cpp. 100% offline, supports Russian and English."
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-primary: #0a0a0f;
@@ -17,7 +52,9 @@
             --text-secondary: #a0a0b0;
             --accent: #6366f1;
             --accent-hover: #818cf8;
+            --accent-purple: #a855f7;
             --success: #22c55e;
+            --error: #ef4444;
             --border: #2a2a3a;
         }
 
@@ -27,11 +64,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -40,14 +83,15 @@
             padding: 0 24px;
         }
 
-        /* Header */
+        /* ==================== HEADER ==================== */
         header {
-            padding: 20px 0;
+            padding: 16px 0;
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(10, 10, 15, 0.8);
+            background: rgba(10, 10, 15, 0.85);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
@@ -61,24 +105,28 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 600;
-            font-size: 1.25rem;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: var(--text-primary);
         }
 
         .logo-icon {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .nav-right {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 24px;
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 28px;
             align-items: center;
         }
 
@@ -93,47 +141,130 @@
             color: var(--text-primary);
         }
 
-        /* Hero */
+        .lang-switcher {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        /* ==================== HERO ==================== */
         .hero {
-            padding: 160px 0 100px;
+            padding: 140px 0 80px;
             text-align: center;
         }
 
         .badge {
-            display: inline-block;
-            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 100px;
             font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
-        .badge span {
-            color: var(--success);
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
             font-weight: 700;
             line-height: 1.1;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 40px;
+            max-width: 560px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -150,6 +281,7 @@
             transition: all 0.2s;
             cursor: pointer;
             border: none;
+            font-family: inherit;
         }
 
         .btn-primary {
@@ -173,31 +305,92 @@
             border-color: var(--text-secondary);
         }
 
-        /* Screenshot */
-        .screenshot-section {
-            padding: 60px 0;
+        /* ==================== APP PREVIEW ==================== */
+        .app-preview {
+            padding: 0 0 80px;
         }
 
-        .screenshot-wrapper {
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
-            border-radius: 24px;
-            padding: 40px;
-            border: 1px solid var(--border);
-        }
-
-        .screenshot-placeholder {
-            background: var(--bg-primary);
+        .mac-window {
+            background: var(--bg-card);
             border-radius: 12px;
-            height: 400px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mac-titlebar {
             display: flex;
             align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mac-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .mac-dot.red { background: #ff5f57; }
+        .mac-dot.yellow { background: #ffbd2e; }
+        .mac-dot.green { background: #28c840; }
+
+        .mac-titlebar-text {
+            flex: 1;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-right: 52px;
+        }
+
+        .mac-content {
+            padding: 80px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-card) 100%);
+            min-height: 360px;
+        }
+
+        .waveform-animation {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 24px;
+            height: 48px;
+        }
+
+        .waveform-bar {
+            width: 4px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-purple));
+            animation: waveform 1.2s ease-in-out infinite;
+        }
+
+        .waveform-bar:nth-child(1) { height: 16px; animation-delay: 0s; }
+        .waveform-bar:nth-child(2) { height: 28px; animation-delay: 0.1s; }
+        .waveform-bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        .waveform-bar:nth-child(4) { height: 32px; animation-delay: 0.3s; }
+        .waveform-bar:nth-child(5) { height: 48px; animation-delay: 0.15s; }
+        .waveform-bar:nth-child(6) { height: 24px; animation-delay: 0.25s; }
+        .waveform-bar:nth-child(7) { height: 36px; animation-delay: 0.35s; }
+
+        @keyframes waveform {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+
+        .mac-content p {
             color: var(--text-secondary);
             font-size: 0.9rem;
         }
 
-        /* Features */
-        .features {
+        /* ==================== HOW IT WORKS ==================== */
+        .how-it-works {
             padding: 100px 0;
         }
 
@@ -207,18 +400,79 @@
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
+            font-size: 2.25rem;
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
         }
 
         .section-header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 20px;
+        }
+
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .step-connector {
+            display: none;
+        }
+
+        /* ==================== FEATURES ==================== */
+        .features {
+            padding: 100px 0;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
@@ -238,26 +492,36 @@
         .feature-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
             margin-bottom: 20px;
         }
 
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 12px;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
         }
 
         .feature-card p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
+            line-height: 1.6;
         }
 
-        /* Specs */
+        /* ==================== SPECS ==================== */
         .specs {
             padding: 80px 0;
             background: var(--bg-secondary);
@@ -265,7 +529,7 @@
 
         .specs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 40px;
             text-align: center;
         }
@@ -278,18 +542,85 @@
 
         .spec-item p {
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
-        /* Pricing */
+        /* ==================== COMPARISON ==================== */
+        .comparison {
+            padding: 100px 0;
+        }
+
+        .comparison-table-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .comparison-table thead th {
+            padding: 20px 24px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table thead th:nth-child(2) {
+            color: var(--accent);
+        }
+
+        .comparison-table tbody td {
+            padding: 16px 24px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tbody td:first-child {
+            color: var(--text-secondary);
+        }
+
+        .check {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .cross {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        .comparison-table tbody td:nth-child(2) {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .comparison-table thead th:nth-child(2) {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* ==================== PRICING ==================== */
         .pricing {
             padding: 100px 0;
         }
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            max-width: 800px;
+            max-width: 760px;
             margin: 0 auto;
         }
 
@@ -305,8 +636,7 @@
             border-color: var(--accent);
         }
 
-        .pricing-card.featured::before {
-            content: 'Most Popular';
+        .pricing-label {
             position: absolute;
             top: -12px;
             left: 50%;
@@ -317,21 +647,22 @@
             border-radius: 100px;
             font-size: 0.8rem;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .pricing-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             margin-bottom: 8px;
         }
 
         .pricing-card .price {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 24px;
         }
 
         .pricing-card .price span {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             font-weight: 400;
         }
@@ -342,22 +673,126 @@
         }
 
         .pricing-features li {
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            font-size: 0.92rem;
         }
 
         .pricing-features li::before {
             content: "✓";
             color: var(--success);
             font-weight: 600;
+            flex-shrink: 0;
         }
 
-        /* Footer */
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ==================== FAQ ==================== */
+        .faq {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            gap: 16px;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-chevron {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+            color: var(--text-secondary);
+        }
+
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            padding-bottom: 20px;
+        }
+
+        /* ==================== DOWNLOAD CTA ==================== */
+        .download-cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .download-cta h2 {
+            font-size: 2.25rem;
+            margin-bottom: 14px;
+        }
+
+        .download-cta > .container > p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .download-cta .btn {
+            font-size: 1.05rem;
+            padding: 16px 32px;
+        }
+
+        .requirements {
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ==================== FOOTER ==================== */
         footer {
-            padding: 60px 0;
+            padding: 48px 0;
             border-top: 1px solid var(--border);
         }
 
@@ -366,7 +801,12 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
         }
 
         .footer-links {
@@ -377,243 +817,893 @@
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            transition: color 0.2s;
         }
 
         .footer-links a:hover {
             color: var(--text-primary);
         }
 
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        .animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        /* Requirements */
-        .requirements {
-            padding: 24px 0;
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .animate.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Responsive */
+        .animate[data-delay="1"] { transition-delay: 0.1s; }
+        .animate[data-delay="2"] { transition-delay: 0.2s; }
+        .animate[data-delay="3"] { transition-delay: 0.3s; }
+        .animate[data-delay="4"] { transition-delay: 0.4s; }
+        .animate[data-delay="5"] { transition-delay: 0.5s; }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
+            .nav-links,
+            .nav-cta {
                 display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                z-index: 99;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+            }
+
+            .mobile-menu.open {
+                display: flex;
+            }
+
+            .mobile-menu a {
+                color: var(--text-primary);
+                text-decoration: none;
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
+
+            .mobile-close {
+                position: absolute;
+                top: 20px;
+                right: 24px;
+                background: none;
+                border: none;
+                color: var(--text-primary);
+                font-size: 2rem;
+                cursor: pointer;
+                padding: 8px;
+                line-height: 1;
             }
 
             .hero {
                 padding: 120px 0 60px;
             }
 
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.05rem;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+
+            .comparison-table thead th,
+            .comparison-table tbody td {
+                padding: 12px 16px;
+                font-size: 0.85rem;
             }
 
             .footer-content {
                 flex-direction: column;
                 text-align: center;
             }
+
+            .mac-content {
+                padding: 48px 24px;
+                min-height: 240px;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                        <line x1="12" x2="12" y1="19" y2="22"/>
-                    </svg>
-                </div>
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366f1"/>
+                            <stop offset="1" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="32" height="32" rx="7" fill="url(#logoGrad)"/>
+                    <path d="M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <path d="M21 14v1a5 5 0 0 1-10 0v-1" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    <line x1="16" y1="20" x2="16" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="13.5" y1="23" x2="18.5" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
                 Voice Decoder
+            </a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#features" data-i18n="nav_features">Features</a>
+                    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+                    <a href="#faq" data-i18n="nav_faq">FAQ</a>
+                    <a href="https://github.com/Xecca/voicedecoder">GitHub</a>
+                </div>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <a href="#download" class="nav-cta" data-i18n="nav_download">Download</a>
             </div>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="https://github.com/Xecca/voicedecoder">GitHub</a>
-                <a href="#download" class="btn btn-primary">Download</a>
-            </div>
+            <button class="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" onclick="toggleMobileMenu()">&times;</button>
+        <a href="#features" onclick="toggleMobileMenu()" data-i18n="nav_features">Features</a>
+        <a href="#pricing" onclick="toggleMobileMenu()" data-i18n="nav_pricing">Pricing</a>
+        <a href="#faq" onclick="toggleMobileMenu()" data-i18n="nav_faq">FAQ</a>
+        <a href="https://github.com/Xecca/voicedecoder">GitHub</a>
+        <div class="lang-switcher" style="margin-top: 8px;">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+        </div>
+        <a href="#download" class="btn btn-primary" onclick="toggleMobileMenu()" data-i18n="nav_download">Download</a>
+    </div>
+
     <main>
+        <!-- Hero -->
         <section class="hero">
             <div class="container">
                 <div class="badge">
-                    <span>●</span> macOS 14+ Sonoma
+                    <span class="badge-dot"></span>
+                    <span>macOS 14+ Sonoma &middot; v0.1.0</span>
                 </div>
-                <h1>Voice to Text,<br>Instantly</h1>
-                <p class="hero-subtitle">
-                    Real-time speech transcription in Russian and English.
-                    Powered by whisper.cpp, runs entirely on your Mac.
+                <h1>
+                    <span class="gradient-text" data-i18n="hero_title">Voice to Text,<br>Instantly</span>
+                </h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    Real-time speech transcription in Russian and English. Powered by whisper.cpp, runs entirely on your Mac. No internet required.
                 </p>
                 <div class="cta-buttons">
                     <a href="#download" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                             <polyline points="7 10 12 15 17 10"/>
                             <line x1="12" x2="12" y1="15" y2="3"/>
                         </svg>
-                        Download Free Trial
+                        <span data-i18n="hero_cta_download">Download Free Trial</span>
                     </a>
                     <a href="#pricing" class="btn btn-secondary">
-                        View Pricing
+                        <span data-i18n="hero_cta_pricing">View Pricing</span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section class="screenshot-section">
+        <!-- App Preview -->
+        <section class="app-preview">
             <div class="container">
-                <div class="screenshot-wrapper">
-                    <div class="screenshot-placeholder">
-                        <!-- Replace with actual screenshot -->
-                        App Screenshot (1200×800)
+                <div class="mac-window animate">
+                    <div class="mac-titlebar">
+                        <div class="mac-dot red"></div>
+                        <div class="mac-dot yellow"></div>
+                        <div class="mac-dot green"></div>
+                        <span class="mac-titlebar-text">Voice Decoder</span>
+                    </div>
+                    <div class="mac-content">
+                        <div class="waveform-animation">
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                            <div class="waveform-bar"></div>
+                        </div>
+                        <p data-i18n="preview_placeholder">App screenshot coming soon</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- How It Works -->
+        <section class="how-it-works" id="how-it-works">
+            <div class="container">
+                <div class="section-header animate">
+                    <h2 data-i18n="hiw_title">How It Works</h2>
+                    <p data-i18n="hiw_subtitle">Three steps to start transcribing</p>
+                </div>
+                <div class="steps">
+                    <div class="step animate" data-delay="1">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="8" width="32" height="24" rx="4" stroke-width="1.5"/>
+                                <text x="20" y="24" text-anchor="middle" fill="var(--accent)" font-size="9" font-weight="600" stroke="none" font-family="Inter, system-ui">⇧⌘_</text>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="hiw_step1_title">Press the Hotkey</h3>
+                        <p data-i18n="hiw_step1_desc">Hit ⇧⌘Space from any app to activate Voice Decoder</p>
+                    </div>
+                    <div class="step animate" data-delay="2">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6a5 5 0 0 0-5 5v9a5 5 0 0 0 10 0v-9a5 5 0 0 0-5-5Z"/>
+                                <path d="M30 18v2a10 10 0 0 1-20 0v-2"/>
+                                <line x1="20" y1="30" x2="20" y2="34"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="hiw_step2_title">Start Speaking</h3>
+                        <p data-i18n="hiw_step2_desc">Speak naturally in Russian or English — your voice is transcribed in real time</p>
+                    </div>
+                    <div class="step animate" data-delay="3">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="6" y="6" width="28" height="28" rx="4"/>
+                                <line x1="12" y1="14" x2="28" y2="14"/>
+                                <line x1="12" y1="20" x2="24" y2="20"/>
+                                <line x1="12" y1="26" x2="20" y2="26"/>
+                                <line x1="30" y1="26" x2="30" y2="32" stroke="var(--accent-purple)" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="hiw_step3_title">Text Appears</h3>
+                        <p data-i18n="hiw_step3_desc">Transcribed text is inserted right at your cursor position</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
         <section class="features" id="features">
             <div class="container">
-                <div class="section-header">
-                    <h2>Why Voice Decoder?</h2>
-                    <p>Built for professionals who value speed and privacy</p>
+                <div class="section-header animate">
+                    <h2 data-i18n="features_title">Why Voice Decoder?</h2>
+                    <p data-i18n="features_subtitle">Built for professionals who value speed and privacy</p>
                 </div>
                 <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Real-Time Transcription</h3>
-                        <p>See your words appear as you speak. Sub-second latency with whisper.cpp optimization.</p>
+                    <!-- Real-Time -->
+                    <div class="feature-card animate" data-delay="1">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature1_title">Real-Time Transcription</h3>
+                        <p data-i18n="feature1_desc">See your words appear as you speak. Sub-second latency with whisper.cpp optimization.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>100% Private</h3>
-                        <p>All processing happens on your Mac. No data leaves your device, ever.</p>
+                    <!-- Privacy -->
+                    <div class="feature-card animate" data-delay="2">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature2_title">100% Private</h3>
+                        <p data-i18n="feature2_desc">All processing happens on your Mac. No data leaves your device, ever.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>Russian + English</h3>
-                        <p>Optimized for both languages with auto-detection. Custom dictionary support.</p>
+                    <!-- Languages -->
+                    <div class="feature-card animate" data-delay="3">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" fill="none"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature3_title">Russian + English</h3>
+                        <p data-i18n="feature3_desc">Optimized for both languages with auto-detection. Custom dictionary support.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⌨️</div>
-                        <h3>Global Hotkey</h3>
-                        <p>Press ⇧⌘Space anywhere to start dictating. Text inserts at cursor position.</p>
+                    <!-- Hotkey -->
+                    <div class="feature-card animate" data-delay="1">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="16" rx="2" fill="none"/>
+                                <line x1="6" y1="8" x2="6" y2="8"/>
+                                <line x1="10" y1="8" x2="10" y2="8"/>
+                                <line x1="14" y1="8" x2="14" y2="8"/>
+                                <line x1="18" y1="8" x2="18" y2="8"/>
+                                <line x1="6" y1="12" x2="18" y2="12"/>
+                                <line x1="6" y1="16" x2="18" y2="16"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature4_title">Global Hotkey</h3>
+                        <p data-i18n="feature4_desc">Press ⇧⌘Space anywhere to start dictating. Text inserts at cursor position.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📁</div>
-                        <h3>File Transcription</h3>
-                        <p>Transcribe audio and video files. Drag & drop MP3, WAV, MP4, and more.</p>
+                    <!-- File Transcription -->
+                    <div class="feature-card animate" data-delay="2">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature5_title">File Transcription</h3>
+                        <p data-i18n="feature5_desc">Transcribe audio and video files. Drag &amp; drop MP3, WAV, MP4, and more.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧠</div>
-                        <h3>Neural Engine</h3>
-                        <p>Uses Apple Neural Engine for blazing-fast inference on Apple Silicon.</p>
+                    <!-- Neural Engine -->
+                    <div class="feature-card animate" data-delay="3">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="4" y="4" width="16" height="16" rx="2" fill="none"/>
+                                <circle cx="9" cy="9" r="1" fill="white" stroke="none"/>
+                                <circle cx="15" cy="9" r="1" fill="white" stroke="none"/>
+                                <circle cx="9" cy="15" r="1" fill="white" stroke="none"/>
+                                <circle cx="15" cy="15" r="1" fill="white" stroke="none"/>
+                                <line x1="9" y1="9" x2="15" y2="15"/>
+                                <line x1="15" y1="9" x2="9" y2="15"/>
+                                <line x1="4" y1="12" x2="1" y2="12"/>
+                                <line x1="23" y1="12" x2="20" y2="12"/>
+                                <line x1="12" y1="4" x2="12" y2="1"/>
+                                <line x1="12" y1="23" x2="12" y2="20"/>
+                            </svg>
+                        </div>
+                        <h3 data-i18n="feature6_title">Neural Engine</h3>
+                        <p data-i18n="feature6_desc">Uses Apple Neural Engine for blazing-fast inference on Apple Silicon.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Specs -->
         <section class="specs">
             <div class="container">
                 <div class="specs-grid">
-                    <div class="spec-item">
+                    <div class="spec-item animate" data-delay="1">
                         <h4>&lt;1s</h4>
-                        <p>Latency</p>
+                        <p data-i18n="spec_latency">Latency</p>
                     </div>
-                    <div class="spec-item">
+                    <div class="spec-item animate" data-delay="2">
                         <h4>~30MB</h4>
-                        <p>RAM Usage</p>
+                        <p data-i18n="spec_ram">RAM Usage</p>
                     </div>
-                    <div class="spec-item">
+                    <div class="spec-item animate" data-delay="3">
                         <h4>RU/EN</h4>
-                        <p>Languages</p>
+                        <p data-i18n="spec_langs">Languages</p>
                     </div>
-                    <div class="spec-item">
+                    <div class="spec-item animate" data-delay="4">
                         <h4>100%</h4>
-                        <p>Offline</p>
+                        <p data-i18n="spec_offline">Offline</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Comparison -->
+        <section class="comparison" id="comparison">
+            <div class="container">
+                <div class="section-header animate">
+                    <h2 data-i18n="comp_title">Voice Decoder vs Cloud Solutions</h2>
+                    <p data-i18n="comp_subtitle">Your voice stays on your device</p>
+                </div>
+                <div class="comparison-table-wrapper animate">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="comp_feature">Feature</th>
+                                <th>Voice Decoder</th>
+                                <th data-i18n="comp_cloud">Cloud Services</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-i18n="comp_privacy">Privacy</td>
+                                <td><span class="check" data-i18n="comp_full_local">✓ Fully local</span></td>
+                                <td><span class="cross" data-i18n="comp_sent_servers">✗ Sent to servers</span></td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="comp_internet">Internet Required</td>
+                                <td><span class="check" data-i18n="comp_no">✓ No</span></td>
+                                <td><span class="cross" data-i18n="comp_yes">✗ Yes</span></td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="comp_latency">Latency</td>
+                                <td><span class="check" data-i18n="comp_sub_second">✓ Sub-second</span></td>
+                                <td><span class="cross" data-i18n="comp_network_dep">✗ Network dependent</span></td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="comp_cost">Monthly Cost</td>
+                                <td><span class="check" data-i18n="comp_one_time">✓ One-time $29</span></td>
+                                <td><span class="cross" data-i18n="comp_subscription">✗ $10-30/month</span></td>
+                            </tr>
+                            <tr>
+                                <td data-i18n="comp_data">Data Storage</td>
+                                <td><span class="check" data-i18n="comp_your_mac">✓ Your Mac only</span></td>
+                                <td><span class="cross" data-i18n="comp_third_party">✗ Third-party cloud</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing -->
         <section class="pricing" id="pricing">
             <div class="container">
-                <div class="section-header">
-                    <h2>Simple Pricing</h2>
-                    <p>Try free for 7 days, then unlock Pro</p>
+                <div class="section-header animate">
+                    <h2 data-i18n="pricing_title">Simple Pricing</h2>
+                    <p data-i18n="pricing_subtitle">Try free for 7 days, then unlock Pro</p>
                 </div>
                 <div class="pricing-cards">
-                    <div class="pricing-card">
-                        <h3>Free Trial</h3>
-                        <div class="price">$0 <span>/ 7 days</span></div>
+                    <div class="pricing-card animate" data-delay="1">
+                        <h3 data-i18n="pricing_free_title">Free Trial</h3>
+                        <div class="price">$0 <span data-i18n="pricing_free_period">/ 7 days</span></div>
                         <ul class="pricing-features">
-                            <li>Real-time transcription</li>
-                            <li>File transcription</li>
-                            <li>Russian & English</li>
-                            <li>All features included</li>
+                            <li data-i18n="pricing_free_f1">Real-time transcription</li>
+                            <li data-i18n="pricing_free_f2">File transcription</li>
+                            <li data-i18n="pricing_free_f3">Russian &amp; English</li>
+                            <li data-i18n="pricing_free_f4">All features included</li>
                         </ul>
-                        <a href="#download" class="btn btn-secondary" style="width: 100%; justify-content: center;">
-                            Start Free Trial
-                        </a>
+                        <a href="#download" class="btn btn-secondary btn-full" data-i18n="pricing_free_cta">Start Free Trial</a>
                     </div>
-                    <div class="pricing-card featured">
-                        <h3>Pro License</h3>
-                        <div class="price">$29 <span>one-time</span></div>
+                    <div class="pricing-card featured animate" data-delay="2">
+                        <span class="pricing-label" data-i18n="pricing_pro_label">Most Popular</span>
+                        <h3 data-i18n="pricing_pro_title">Pro License</h3>
+                        <div class="price">$29 <span data-i18n="pricing_pro_period">one-time</span></div>
                         <ul class="pricing-features">
-                            <li>Unlimited transcription</li>
-                            <li>Lifetime updates</li>
-                            <li>Priority support</li>
-                            <li>Custom dictionary</li>
+                            <li data-i18n="pricing_pro_f1">Unlimited transcription</li>
+                            <li data-i18n="pricing_pro_f2">Lifetime updates</li>
+                            <li data-i18n="pricing_pro_f3">Priority support</li>
+                            <li data-i18n="pricing_pro_f4">Custom dictionary</li>
                         </ul>
-                        <a href="https://gumroad.com/l/voicedecoder" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                            Buy Now
-                        </a>
+                        <a href="https://gumroad.com/l/voicedecoder" class="btn btn-primary btn-full" data-i18n="pricing_pro_cta">Buy Now</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="download">
-            <div class="container" style="padding: 80px 0; text-align: center;">
-                <h2 style="font-size: 2rem; margin-bottom: 16px;">Ready to try?</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 32px;">
-                    Download Voice Decoder and start transcribing in seconds.
-                </p>
-                <a href="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-latest.dmg" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 36px;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <!-- FAQ -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <div class="section-header animate">
+                    <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+                    <p data-i18n="faq_subtitle">Everything you need to know</p>
+                </div>
+                <div class="faq-list">
+                    <div class="faq-item animate" data-delay="1">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q1">Does it work without internet?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a1">Yes! Voice Decoder runs 100% offline. All speech recognition happens locally on your Mac using whisper.cpp. No data is ever sent to any server.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate" data-delay="2">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q2">Which languages are supported?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a2">Currently Russian and English are fully supported with optimized models. Auto-detection mode can switch between both languages automatically.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate" data-delay="3">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q3">What macOS versions are supported?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a3">Voice Decoder requires macOS 14 Sonoma or later and an Apple Silicon Mac (M1/M2/M3/M4). Intel Macs are not supported.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate" data-delay="4">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q4">How does the free trial work?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a4">Download and use all features free for 7 days. No credit card required. After the trial, purchase a one-time Pro license to continue using the app.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate" data-delay="5">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q5">Is my voice data sent anywhere?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a5">Absolutely not. Voice Decoder processes everything locally using the whisper.cpp engine. Your audio never leaves your Mac — not even for analytics.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item animate" data-delay="5">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span data-i18n="faq_q6">Is Apple Silicon required?</span>
+                            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_a6">Yes, Voice Decoder requires Apple Silicon (M1 or later). The app uses the Neural Engine and Metal GPU for fast inference, which are only available on Apple Silicon Macs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download CTA -->
+        <section class="download-cta" id="download">
+            <div class="container">
+                <h2 class="animate" data-i18n="dl_title">Ready to try?</h2>
+                <p class="animate" data-i18n="dl_subtitle">Download Voice Decoder and start transcribing in seconds.</p>
+                <a href="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-latest.dmg" class="btn btn-primary animate">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                         <polyline points="7 10 12 15 17 10"/>
                         <line x1="12" x2="12" y1="15" y2="3"/>
                     </svg>
-                    Download for macOS
+                    <span data-i18n="dl_button">Download for macOS</span>
                 </a>
-                <p class="requirements">
-                    Requires macOS 14 Sonoma or later. Apple Silicon recommended.
-                </p>
+                <p class="requirements animate" data-i18n="dl_requirements">Requires macOS 14 Sonoma or later. Apple Silicon (M1+) required.</p>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="copyright">
-                    © 2025 Voice Decoder. All rights reserved.
-                </div>
+                <div class="copyright" data-i18n="footer_copyright">&copy; 2026 Voice Decoder. All rights reserved.</div>
                 <div class="footer-links">
-                    <a href="mailto:support@voicedecoder.redorcdron.space">Support</a>
-                    <a href="/privacy">Privacy Policy</a>
-                    <a href="/terms">Terms of Service</a>
+                    <a href="mailto:support@voicedecoder.redorcdron.space" data-i18n="footer_support">Support</a>
+                    <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+                    <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
                     <a href="https://github.com/Xecca/voicedecoder">GitHub</a>
                 </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        // ==================== TRANSLATIONS ====================
+        const i18n = {
+            en: {
+                nav_features: "Features",
+                nav_pricing: "Pricing",
+                nav_faq: "FAQ",
+                nav_download: "Download",
+                hero_title: "Voice to Text,<br>Instantly",
+                hero_subtitle: "Real-time speech transcription in Russian and English. Powered by whisper.cpp, runs entirely on your Mac. No internet required.",
+                hero_cta_download: "Download Free Trial",
+                hero_cta_pricing: "View Pricing",
+                preview_placeholder: "App screenshot coming soon",
+                hiw_title: "How It Works",
+                hiw_subtitle: "Three steps to start transcribing",
+                hiw_step1_title: "Press the Hotkey",
+                hiw_step1_desc: "Hit ⇧⌘Space from any app to activate Voice Decoder",
+                hiw_step2_title: "Start Speaking",
+                hiw_step2_desc: "Speak naturally in Russian or English — your voice is transcribed in real time",
+                hiw_step3_title: "Text Appears",
+                hiw_step3_desc: "Transcribed text is inserted right at your cursor position",
+                features_title: "Why Voice Decoder?",
+                features_subtitle: "Built for professionals who value speed and privacy",
+                feature1_title: "Real-Time Transcription",
+                feature1_desc: "See your words appear as you speak. Sub-second latency with whisper.cpp optimization.",
+                feature2_title: "100% Private",
+                feature2_desc: "All processing happens on your Mac. No data leaves your device, ever.",
+                feature3_title: "Russian + English",
+                feature3_desc: "Optimized for both languages with auto-detection. Custom dictionary support.",
+                feature4_title: "Global Hotkey",
+                feature4_desc: "Press ⇧⌘Space anywhere to start dictating. Text inserts at cursor position.",
+                feature5_title: "File Transcription",
+                feature5_desc: "Transcribe audio and video files. Drag & drop MP3, WAV, MP4, and more.",
+                feature6_title: "Neural Engine",
+                feature6_desc: "Uses Apple Neural Engine for blazing-fast inference on Apple Silicon.",
+                spec_latency: "Latency",
+                spec_ram: "RAM Usage",
+                spec_langs: "Languages",
+                spec_offline: "Offline",
+                comp_title: "Voice Decoder vs Cloud Solutions",
+                comp_subtitle: "Your voice stays on your device",
+                comp_feature: "Feature",
+                comp_cloud: "Cloud Services",
+                comp_privacy: "Privacy",
+                comp_full_local: "✓ Fully local",
+                comp_sent_servers: "✗ Sent to servers",
+                comp_internet: "Internet Required",
+                comp_no: "✓ No",
+                comp_yes: "✗ Yes",
+                comp_latency: "Latency",
+                comp_sub_second: "✓ Sub-second",
+                comp_network_dep: "✗ Network dependent",
+                comp_cost: "Monthly Cost",
+                comp_one_time: "✓ One-time $29",
+                comp_subscription: "✗ $10-30/month",
+                comp_data: "Data Storage",
+                comp_your_mac: "✓ Your Mac only",
+                comp_third_party: "✗ Third-party cloud",
+                pricing_title: "Simple Pricing",
+                pricing_subtitle: "Try free for 7 days, then unlock Pro",
+                pricing_free_title: "Free Trial",
+                pricing_free_period: "/ 7 days",
+                pricing_free_f1: "Real-time transcription",
+                pricing_free_f2: "File transcription",
+                pricing_free_f3: "Russian & English",
+                pricing_free_f4: "All features included",
+                pricing_free_cta: "Start Free Trial",
+                pricing_pro_label: "Most Popular",
+                pricing_pro_title: "Pro License",
+                pricing_pro_period: "one-time",
+                pricing_pro_f1: "Unlimited transcription",
+                pricing_pro_f2: "Lifetime updates",
+                pricing_pro_f3: "Priority support",
+                pricing_pro_f4: "Custom dictionary",
+                pricing_pro_cta: "Buy Now",
+                faq_title: "Frequently Asked Questions",
+                faq_subtitle: "Everything you need to know",
+                faq_q1: "Does it work without internet?",
+                faq_a1: "Yes! Voice Decoder runs 100% offline. All speech recognition happens locally on your Mac using whisper.cpp. No data is ever sent to any server.",
+                faq_q2: "Which languages are supported?",
+                faq_a2: "Currently Russian and English are fully supported with optimized models. Auto-detection mode can switch between both languages automatically.",
+                faq_q3: "What macOS versions are supported?",
+                faq_a3: "Voice Decoder requires macOS 14 Sonoma or later and an Apple Silicon Mac (M1/M2/M3/M4). Intel Macs are not supported.",
+                faq_q4: "How does the free trial work?",
+                faq_a4: "Download and use all features free for 7 days. No credit card required. After the trial, purchase a one-time Pro license to continue using the app.",
+                faq_q5: "Is my voice data sent anywhere?",
+                faq_a5: "Absolutely not. Voice Decoder processes everything locally using the whisper.cpp engine. Your audio never leaves your Mac — not even for analytics.",
+                faq_q6: "Is Apple Silicon required?",
+                faq_a6: "Yes, Voice Decoder requires Apple Silicon (M1 or later). The app uses the Neural Engine and Metal GPU for fast inference, which are only available on Apple Silicon Macs.",
+                dl_title: "Ready to try?",
+                dl_subtitle: "Download Voice Decoder and start transcribing in seconds.",
+                dl_button: "Download for macOS",
+                dl_requirements: "Requires macOS 14 Sonoma or later. Apple Silicon (M1+) required.",
+                footer_copyright: "© 2026 Voice Decoder. All rights reserved.",
+                footer_support: "Support",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service"
+            },
+            ru: {
+                nav_features: "Возможности",
+                nav_pricing: "Цены",
+                nav_faq: "FAQ",
+                nav_download: "Скачать",
+                hero_title: "Голос в текст,<br>мгновенно",
+                hero_subtitle: "Транскрипция речи в реальном времени на русском и английском. Работает на whisper.cpp, полностью на вашем Mac. Без интернета.",
+                hero_cta_download: "Скачать бесплатно",
+                hero_cta_pricing: "Смотреть цены",
+                preview_placeholder: "Скриншот приложения скоро появится",
+                hiw_title: "Как это работает",
+                hiw_subtitle: "Три шага до начала транскрипции",
+                hiw_step1_title: "Нажмите хоткей",
+                hiw_step1_desc: "Нажмите ⇧⌘Space в любом приложении для активации Voice Decoder",
+                hiw_step2_title: "Говорите",
+                hiw_step2_desc: "Говорите естественно на русском или английском — речь транскрибируется в реальном времени",
+                hiw_step3_title: "Текст появляется",
+                hiw_step3_desc: "Транскрибированный текст вставляется прямо в позицию курсора",
+                features_title: "Почему Voice Decoder?",
+                features_subtitle: "Создан для профессионалов, ценящих скорость и приватность",
+                feature1_title: "Транскрипция в реальном времени",
+                feature1_desc: "Слова появляются по мере произнесения. Задержка менее секунды благодаря whisper.cpp.",
+                feature2_title: "100% приватность",
+                feature2_desc: "Вся обработка происходит на вашем Mac. Данные никогда не покидают устройство.",
+                feature3_title: "Русский + Английский",
+                feature3_desc: "Оптимизация для обоих языков с автоопределением. Поддержка пользовательского словаря.",
+                feature4_title: "Глобальный хоткей",
+                feature4_desc: "Нажмите ⇧⌘Space в любом месте для диктовки. Текст вставляется в позицию курсора.",
+                feature5_title: "Транскрипция файлов",
+                feature5_desc: "Транскрибируйте аудио и видео файлы. Перетащите MP3, WAV, MP4 и другие.",
+                feature6_title: "Neural Engine",
+                feature6_desc: "Использует Apple Neural Engine для молниеносного распознавания на Apple Silicon.",
+                spec_latency: "Задержка",
+                spec_ram: "Потребление ОЗУ",
+                spec_langs: "Языки",
+                spec_offline: "Офлайн",
+                comp_title: "Voice Decoder vs облачные сервисы",
+                comp_subtitle: "Ваш голос остаётся на вашем устройстве",
+                comp_feature: "Параметр",
+                comp_cloud: "Облачные сервисы",
+                comp_privacy: "Приватность",
+                comp_full_local: "✓ Полностью локально",
+                comp_sent_servers: "✗ Отправляется на серверы",
+                comp_internet: "Нужен интернет",
+                comp_no: "✓ Нет",
+                comp_yes: "✗ Да",
+                comp_latency: "Задержка",
+                comp_sub_second: "✓ Менее секунды",
+                comp_network_dep: "✗ Зависит от сети",
+                comp_cost: "Ежемесячная стоимость",
+                comp_one_time: "✓ Разовая оплата $29",
+                comp_subscription: "✗ $10-30/месяц",
+                comp_data: "Хранение данных",
+                comp_your_mac: "✓ Только ваш Mac",
+                comp_third_party: "✗ Стороннее облако",
+                pricing_title: "Простые цены",
+                pricing_subtitle: "Попробуйте бесплатно 7 дней, затем разблокируйте Pro",
+                pricing_free_title: "Пробный период",
+                pricing_free_period: "/ 7 дней",
+                pricing_free_f1: "Транскрипция в реальном времени",
+                pricing_free_f2: "Транскрипция файлов",
+                pricing_free_f3: "Русский и английский",
+                pricing_free_f4: "Все функции включены",
+                pricing_free_cta: "Начать бесплатно",
+                pricing_pro_label: "Популярный",
+                pricing_pro_title: "Pro лицензия",
+                pricing_pro_period: "разовая оплата",
+                pricing_pro_f1: "Безлимитная транскрипция",
+                pricing_pro_f2: "Обновления навсегда",
+                pricing_pro_f3: "Приоритетная поддержка",
+                pricing_pro_f4: "Пользовательский словарь",
+                pricing_pro_cta: "Купить",
+                faq_title: "Частые вопросы",
+                faq_subtitle: "Всё, что нужно знать",
+                faq_q1: "Работает ли без интернета?",
+                faq_a1: "Да! Voice Decoder работает 100% офлайн. Распознавание речи происходит локально на вашем Mac с помощью whisper.cpp. Данные никогда не отправляются на серверы.",
+                faq_q2: "Какие языки поддерживаются?",
+                faq_a2: "Сейчас полностью поддерживаются русский и английский с оптимизированными моделями. Режим автоопределения переключается между языками автоматически.",
+                faq_q3: "Какие версии macOS поддерживаются?",
+                faq_a3: "Voice Decoder требует macOS 14 Sonoma или новее и Mac на Apple Silicon (M1/M2/M3/M4). Intel Mac не поддерживается.",
+                faq_q4: "Как работает пробный период?",
+                faq_a4: "Скачайте и используйте все функции бесплатно 7 дней. Карта не требуется. После пробного периода приобретите разовую Pro-лицензию.",
+                faq_q5: "Мои голосовые данные куда-то отправляются?",
+                faq_a5: "Нет. Voice Decoder обрабатывает всё локально с помощью whisper.cpp. Ваш голос никогда не покидает Mac — даже для аналитики.",
+                faq_q6: "Нужен ли Apple Silicon?",
+                faq_a6: "Да, Voice Decoder требует Apple Silicon (M1 или новее). Приложение использует Neural Engine и Metal GPU для быстрого распознавания, которые доступны только на Apple Silicon.",
+                dl_title: "Готовы попробовать?",
+                dl_subtitle: "Скачайте Voice Decoder и начните транскрибировать за секунды.",
+                dl_button: "Скачать для macOS",
+                dl_requirements: "Требуется macOS 14 Sonoma или новее. Требуется Apple Silicon (M1+).",
+                footer_copyright: "© 2026 Voice Decoder. Все права защищены.",
+                footer_support: "Поддержка",
+                footer_privacy: "Политика конфиденциальности",
+                footer_terms: "Условия использования"
+            }
+        };
+
+        // ==================== LANGUAGE SWITCHER ====================
+        let currentLang = localStorage.getItem('vd_lang') || 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('vd_lang', lang);
+            document.documentElement.lang = lang;
+
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = i18n[lang][key];
+                    } else {
+                        el.innerHTML = i18n[lang][key];
+                    }
+                }
+            });
+
+            // Update active state on all switchers
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update page title
+            document.title = lang === 'ru'
+                ? 'Voice Decoder — Голос в текст для macOS в реальном времени'
+                : 'Voice Decoder — Real-Time Voice to Text for macOS';
+        }
+
+        // Init language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind all language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+            });
+
+            // Apply saved language
+            if (currentLang !== 'en') {
+                switchLanguage(currentLang);
+            }
+        });
+
+        // ==================== MOBILE MENU ====================
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+
+        // ==================== FAQ ACCORDION ====================
+        function toggleFaq(button) {
+            const item = button.closest('.faq-item');
+            const wasOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.faq-item.open').forEach(el => {
+                el.classList.remove('open');
+            });
+
+            // Toggle clicked
+            if (!wasOpen) {
+                item.classList.add('open');
+            }
+        }
+
+        // ==================== SCROLL ANIMATIONS ====================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.animate').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
