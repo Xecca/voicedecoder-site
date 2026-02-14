@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    appcast.xml — Sparkle update feed
+
+    Этот файл описывает доступные обновления приложения.
+    Разместите его на веб-сервере и укажите URL в Info.plist (SUFeedURL).
+
+    Для подписи обновлений используйте утилиту sign_update из Sparkle:
+    ./sign_update VoiceDecoder-1.0.1.dmg
+
+    Результат — sparkle:edSignature — добавьте в enclosure.
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Voice Decoder Updates</title>
+        <link>https://voicedecoder.redorcdron.space/releases/appcast.xml</link>
+        <description>Updates for Voice Decoder</description>
+        <language>en</language>
+
+        <!-- Initial Release -->
+        <item>
+            <title>Version 0.1.0</title>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <description><![CDATA[
+                <h2>Voice Decoder 0.1.0 — Initial Release</h2>
+
+                <h3>Real-Time Transcription</h3>
+                <ul>
+                    <li>Live voice-to-text powered by whisper.cpp</li>
+                    <li>Sub-second latency with Apple Neural Engine</li>
+                    <li>Voice Activity Detection (VAD) for accurate speech segmentation</li>
+                </ul>
+
+                <h3>Language Support</h3>
+                <ul>
+                    <li>Russian and English transcription</li>
+                    <li>Auto-detect mode with language switching</li>
+                </ul>
+
+                <h3>System Integration</h3>
+                <ul>
+                    <li>Global hotkey (⇧⌘Space) works in any application</li>
+                    <li>Automatic text insertion at cursor position</li>
+                    <li>Non-activating floating panel</li>
+                </ul>
+
+                <h3>File Transcription</h3>
+                <ul>
+                    <li>Audio files: MP3, WAV, M4A, FLAC, OGG</li>
+                    <li>Video files: MP4, MOV, MKV, WebM</li>
+                    <li>Batch processing with progress indication</li>
+                </ul>
+
+                <h3>Custom Dictionary</h3>
+                <ul>
+                    <li>Recognition terms for improved accuracy</li>
+                    <li>Post-processing replacements</li>
+                </ul>
+            ]]></description>
+
+            <pubDate>Sat, 14 Feb 2026 12:00:00 +0000</pubDate>
+
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-0.1.0.dmg"
+                sparkle:edSignature="REPLACE_WITH_SIGNATURE"
+                length="1183098"
+                type="application/octet-stream"/>
+        </item>
+
+        <!-- Предыдущие версии (для отката) -->
+        <!--
+        <item>
+            <title>Version 1.0.0</title>
+            <sparkle:version>100</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <h2>Initial Release</h2>
+                <p>First public version of Voice Decoder.</p>
+            ]]></description>
+            <pubDate>Mon, 01 Jan 2025 12:00:00 +0000</pubDate>
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-1.0.0.dmg"
+                sparkle:edSignature="REPLACE_WITH_SIGNATURE"
+                length="48000000"
+                type="application/octet-stream"/>
+        </item>
+        -->
+    </channel>
+</rss>
