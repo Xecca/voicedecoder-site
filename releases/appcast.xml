@@ -65,7 +65,7 @@
 
             <enclosure
                 url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-0.1.0.dmg"
-                sparkle:edSignature="REPLACE_WITH_SIGNATURE"
+                sparkle:edSignature="cPi0lB60RNARmF2roLHIr1Pu+liv6bLb6dCuQE3gX22popNUqTdt7Dd0cpiqfOuOLVjAYtfOfeQGoHr3gmViBw=="
                 length="1183098"
                 type="application/octet-stream"/>
         </item>
