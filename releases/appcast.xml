@@ -17,6 +17,40 @@
         <description>Updates for Voice Decoder</description>
         <language>en</language>
 
+        <!-- Version 0.3.0 -->
+        <item>
+            <title>Version 0.3.0</title>
+            <sparkle:version>4</sparkle:version>
+            <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <description><![CDATA[
+                <h2>Voice Decoder 0.3.0</h2>
+
+                <h3>Translation</h3>
+                <ul>
+                    <li>Translate transcription results using Apple Translation (on-device)</li>
+                    <li>Toggle between original and translated text</li>
+                    <li>Translation language configurable in Settings</li>
+                </ul>
+
+                <h3>Improvements</h3>
+                <ul>
+                    <li>Fixed file transcription window loading state</li>
+                    <li>Better onboarding visibility on first launch</li>
+                    <li>Fixed translation cache when changing target language</li>
+                </ul>
+            ]]></description>
+
+            <pubDate>Fri, 14 Feb 2026 23:00:00 +0000</pubDate>
+
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-0.3.0.dmg"
+                sparkle:edSignature="l4Txdu/AR3t+f+BDgoeYtHfscc65tGjd9qW6PBTjX3/7pHCZ9JM2R8EGEmBrppBdOKdbAfDMAF0/WlIs0uP1BA=="
+                length="2213929"
+                type="application/octet-stream"/>
+        </item>
+
         <!-- Version 0.2.1 -->
         <item>
             <title>Version 0.2.1</title>
