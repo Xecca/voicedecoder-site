@@ -17,6 +17,32 @@
         <description>Updates for Voice Decoder</description>
         <language>en</language>
 
+        <!-- Version 0.2.1 -->
+        <item>
+            <title>Version 0.2.1</title>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <description><![CDATA[
+                <h2>Voice Decoder 0.2.1</h2>
+
+                <h3>App Icon</h3>
+                <ul>
+                    <li>Custom app icon matching the website design</li>
+                    <li>Icon now displays correctly in About and Sparkle dialogs</li>
+                </ul>
+            ]]></description>
+
+            <pubDate>Sat, 14 Feb 2026 22:00:00 +0000</pubDate>
+
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-0.2.1.dmg"
+                sparkle:edSignature="yuXQGlaBc5Opnpt5aaIMHE9y/P+8SDbiZDYxHcNOEmnXSJn58basemIVHbYIyjm5BOZGNtvMEcAF/FFXgtKeCw=="
+                length="2227109"
+                type="application/octet-stream"/>
+        </item>
+
         <!-- Version 0.2.0 -->
         <item>
             <title>Version 0.2.0</title>
