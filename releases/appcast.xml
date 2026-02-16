@@ -17,6 +17,28 @@
         <description>Updates for Voice Decoder</description>
         <language>en</language>
 
+        <!-- Version 0.4.0 -->
+        <item>
+            <title>Version 0.4.0</title>
+            <sparkle:version>6</sparkle:version>
+            <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <description><![CDATA[
+                <h2>Voice Decoder 0.4.0</h2>
+
+                    <h3>Website</h3><ul><li>Release Log page with full version history</li><li>Download links for all previous versions</li></ul>
+            ]]></description>
+
+            <pubDate>Mon, 16 Feb 2026 19:09:01 +0700</pubDate>
+
+            <enclosure
+                url="https://github.com/Xecca/VoiceDecoder/releases/download/v0.4.0/VoiceDecoder-0.4.0.dmg"
+                sparkle:edSignature="SLqkXwORwlkkxFohRkrf3mpXU4mTauqoAZvUE6GV0EoULdd0d2UZFXF4HASDkc06I/SynEYtVbDHAFlUGfe6CA=="
+                length="2240038"
+                type="application/octet-stream"/>
+        </item>
+
         <!-- Version 0.3.1 -->
         <item>
             <title>Version 0.3.1</title>
