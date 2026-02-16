@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Log — Voice Decoder</title>
+    <meta name="description" content="Voice Decoder release history. See what's new in each version.">
+    <link rel="canonical" href="https://voicedecoder.redorcdron.space/changelog">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='7' fill='url(%23g)'/%3E%3Cpath d='M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z' fill='none' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M21 14v1a5 5 0 0 1-10 0v-1' fill='none' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='20' x2='16' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='13.5' y1='23' x2='18.5' y2='23' stroke='white' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --accent-purple: #a855f7;
+            --border: #2a2a3a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 16px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        header .container {
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon { width: 32px; height: 32px; flex-shrink: 0; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--text-primary); }
+
+        /* Content */
+        .changelog-content {
+            padding: 120px 0 80px;
+        }
+
+        .changelog-content h1 {
+            font-size: 2.25rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .changelog-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+        }
+
+        /* Version card */
+        .version-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .version-card:hover {
+            border-color: var(--accent);
+        }
+
+        .version-card.latest {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(168, 85, 247, 0.05));
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .version-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .version-title h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .badge-latest {
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .version-date {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .version-notes {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .version-notes h3 {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+
+        .version-notes h3:first-child {
+            margin-top: 0;
+        }
+
+        .version-notes ul {
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .version-notes li {
+            margin-bottom: 4px;
+        }
+
+        .version-footer {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .download-btn:hover {
+            color: var(--accent-hover);
+        }
+
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer .container {
+            max-width: 1200px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .changelog-content h1 { font-size: 1.75rem; }
+            .version-header { flex-direction: column; align-items: flex-start; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366f1"/>
+                            <stop offset="1" stop-color="#a855f7"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="32" height="32" rx="7" fill="url(#logoGrad)"/>
+                    <path d="M16 6a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V9a3 3 0 0 0-3-3Z" stroke="white" stroke-width="1.5" fill="none"/>
+                    <path d="M21 14v1a5 5 0 0 1-10 0v-1" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                    <line x1="16" y1="20" x2="16" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <line x1="13.5" y1="23" x2="18.5" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                Voice Decoder
+            </a>
+            <div class="header-right">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+                <a href="/" class="back-link" data-i18n="back_home">&larr; Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="changelog-content">
+        <div class="container">
+            <h1 data-i18n="title">Release Log</h1>
+            <p class="changelog-subtitle" data-i18n="subtitle">What's new in each version of Voice Decoder</p>
+
+<!-- VERSIONS_START -->
+            <div class="version-card latest">
+                <div class="version-header">
+                    <div class="version-title">
+                        <h2>v0.3.1</h2>
+                        <span class="badge-latest" data-i18n="badge_latest">Latest</span>
+                    </div>
+                    <span class="version-date">2026-02-16</span>
+                </div>
+                <div class="version-notes" data-i18n="notes_0_3_1">
+                    <h3>Improvements</h3><ul><li>History viewer button in settings</li><li>Default insertion mode changed to Copy only</li></ul>
+                </div>
+                <div class="version-footer">
+                    <a href="https://github.com/Xecca/VoiceDecoder/releases/download/v0.3.1/VoiceDecoder-0.3.1.dmg" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span data-i18n="download_dmg">Download DMG</span>
+                    </a>
+                </div>
+            </div>
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <h2>v0.3.0</h2>
+                        
+                    </div>
+                    <span class="version-date">2026-02-14</span>
+                </div>
+                <div class="version-notes" data-i18n="notes_0_3_0">
+                    <h3>Translation</h3><ul><li>Translate transcription results using Apple Translation (on-device)</li><li>Toggle between original and translated text</li><li>Translation language configurable in Settings</li></ul><h3>Improvements</h3><ul><li>Fixed file transcription window loading state</li><li>Better onboarding visibility on first launch</li><li>Fixed translation cache when changing target language</li></ul>
+                </div>
+                <div class="version-footer">
+                    <a href="https://github.com/Xecca/VoiceDecoder/releases/download/v0.3.0/VoiceDecoder-0.3.0.dmg" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span data-i18n="download_dmg">Download DMG</span>
+                    </a>
+                </div>
+            </div>
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <h2>v0.2.1</h2>
+                        
+                    </div>
+                    <span class="version-date">2026-02-14</span>
+                </div>
+                <div class="version-notes" data-i18n="notes_0_2_1">
+                    <h3>App Icon</h3><ul><li>Custom app icon matching the website design</li><li>Icon now displays correctly in About and Sparkle dialogs</li></ul>
+                </div>
+                <div class="version-footer">
+                    <a href="https://github.com/Xecca/VoiceDecoder/releases/download/v0.2.1/VoiceDecoder-0.2.1.dmg" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span data-i18n="download_dmg">Download DMG</span>
+                    </a>
+                </div>
+            </div>
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <h2>v0.2.0</h2>
+                        
+                    </div>
+                    <span class="version-date">2026-02-14</span>
+                </div>
+                <div class="version-notes" data-i18n="notes_0_2_0">
+                    <h3>Auto-Updates</h3><ul><li>Sparkle 2.x integration for seamless updates</li><li>"Check for Updates" in menu bar and About tab</li><li>Automatic update checks on launch</li></ul>
+                </div>
+                <div class="version-footer">
+                    <a href="https://github.com/Xecca/VoiceDecoder/releases/download/v0.2.0/VoiceDecoder-0.2.0.dmg" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span data-i18n="download_dmg">Download DMG</span>
+                    </a>
+                </div>
+            </div>
+            <div class="version-card">
+                <div class="version-header">
+                    <div class="version-title">
+                        <h2>v0.1.0</h2>
+                        
+                    </div>
+                    <span class="version-date">2026-02-14</span>
+                </div>
+                <div class="version-notes" data-i18n="notes_0_1_0">
+                    <h3>Real-Time Transcription</h3><ul><li>Live voice-to-text powered by whisper.cpp</li><li>Sub-second latency with Apple Neural Engine</li><li>Voice Activity Detection (VAD)</li></ul><h3>Language Support</h3><ul><li>Russian and English transcription</li><li>Auto-detect mode with language switching</li></ul><h3>System Integration</h3><ul><li>Global hotkey works in any application</li><li>Automatic text insertion at cursor position</li><li>Non-activating floating panel</li></ul><h3>File Transcription</h3><ul><li>Audio: MP3, WAV, M4A, FLAC, OGG</li><li>Video: MP4, MOV, MKV, WebM</li><li>Batch processing with progress indication</li></ul>
+                </div>
+                <div class="version-footer">
+                    <a href="https://github.com/Xecca/VoiceDecoder/releases/download/v0.1.0/VoiceDecoder-0.1.0.dmg" class="download-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        <span data-i18n="download_dmg">Download DMG</span>
+                    </a>
+                </div>
+            </div>
+<!-- VERSIONS_END -->
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright" data-i18n="footer_copyright">&copy; 2026 Voice Decoder. All rights reserved.</div>
+                <div class="footer-links">
+                    <a href="mailto:support@voicedecoder.redorcdron.space" data-i18n="footer_support">Support</a>
+                    <a href="/changelog" data-i18n="footer_changelog">Release Log</a>
+                    <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+                    <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const i18n = {
+            en: {
+                back_home: "\u2190 Back to Home",
+                title: "Release Log",
+                subtitle: "What's new in each version of Voice Decoder",
+                badge_latest: "Latest",
+                download_dmg: "Download DMG",
+                footer_copyright: "\u00a9 2026 Voice Decoder. All rights reserved.",
+                footer_support: "Support",
+                footer_changelog: "Release Log",
+                footer_privacy: "Privacy Policy",
+                footer_terms: "Terms of Service"
+                ,notes_0_3_1: "<h3>Improvements</h3><ul><li>History viewer button in settings</li><li>Default insertion mode changed to Copy only</li></ul>"
+                ,notes_0_3_0: "<h3>Translation</h3><ul><li>Translate transcription results using Apple Translation (on-device)</li><li>Toggle between original and translated text</li><li>Translation language configurable in Settings</li></ul><h3>Improvements</h3><ul><li>Fixed file transcription window loading state</li><li>Better onboarding visibility on first launch</li><li>Fixed translation cache when changing target language</li></ul>"
+                ,notes_0_2_1: "<h3>App Icon</h3><ul><li>Custom app icon matching the website design</li><li>Icon now displays correctly in About and Sparkle dialogs</li></ul>"
+                ,notes_0_2_0: "<h3>Auto-Updates</h3><ul><li>Sparkle 2.x integration for seamless updates</li><li>\"Check for Updates\" in menu bar and About tab</li><li>Automatic update checks on launch</li></ul>"
+                ,notes_0_1_0: "<h3>Real-Time Transcription</h3><ul><li>Live voice-to-text powered by whisper.cpp</li><li>Sub-second latency with Apple Neural Engine</li><li>Voice Activity Detection (VAD)</li></ul><h3>Language Support</h3><ul><li>Russian and English transcription</li><li>Auto-detect mode with language switching</li></ul><h3>System Integration</h3><ul><li>Global hotkey works in any application</li><li>Automatic text insertion at cursor position</li><li>Non-activating floating panel</li></ul><h3>File Transcription</h3><ul><li>Audio: MP3, WAV, M4A, FLAC, OGG</li><li>Video: MP4, MOV, MKV, WebM</li><li>Batch processing with progress indication</li></ul>"
+            },
+            ru: {
+                back_home: "\u2190 На главную",
+                title: "История обновлений",
+                subtitle: "Что нового в каждой версии Voice Decoder",
+                badge_latest: "Текущая",
+                download_dmg: "Скачать DMG",
+                footer_copyright: "\u00a9 2026 Voice Decoder. Все права защищены.",
+                footer_support: "Поддержка",
+                footer_changelog: "История обновлений",
+                footer_privacy: "Политика конфиденциальности",
+                footer_terms: "Условия использования"
+                ,notes_0_3_1: "Кнопка просмотра истории в настройках. Режим вставки по умолчанию изменён на Copy only."
+                ,notes_0_3_0: "Перевод через Apple Translation (на устройстве). Переключение между оригиналом и переводом. Исправлена транскрипция файлов и онбординг."
+                ,notes_0_2_1: "Иконка приложения в стиле сайта. Корректное отображение в диалогах About и Sparkle."
+                ,notes_0_2_0: "Интеграция Sparkle 2.x для автообновлений. «Проверить обновления» в меню и вкладке About."
+                ,notes_0_1_0: "Первый релиз. Транскрипция в реальном времени с whisper.cpp, русский/английский, глобальная горячая клавиша, транскрипция файлов."
+            }
+        };
+
+        let currentLang = localStorage.getItem('vd_lang') || 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('vd_lang', lang);
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            document.title = lang === 'ru'
+                ? 'История обновлений — Voice Decoder'
+                : 'Release Log — Voice Decoder';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+            });
+            if (currentLang !== 'en') switchLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>
