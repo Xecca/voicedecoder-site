@@ -27,7 +27,7 @@
             <description><![CDATA[
                 <h2>Voice Decoder 1.1.0</h2>
 
-                    <h3>Text-to-Speech</h3><ul><li>Озвучивание текста транскрипций и произвольного текста через системные голоса macOS</li><li>Экспорт аудио в M4A с настраиваемой скоростью</li><li>Подсветка текущего слова при воспроизведении</li><li>Настройки TTS: выбор голоса (RU/EN), скорость, тон, громкость, пауза между абзацами</li><li>Поддержка Personal Voice</li></ul><h3>Улучшения</h3><ul><li>Кнопка сброса параметров TTS по умолчанию</li><li>Исправлена ошибка экспорта при перезаписи существующего файла</li></ul>
+                    <h3>Text-to-Speech</h3><ul><li>Speak transcription text and custom text aloud using macOS system voices</li><li>Export audio to M4A with adjustable speed</li><li>Word highlighting during playback</li><li>TTS settings: voice selection (RU/EN), speed, pitch, volume, paragraph pause</li><li>Personal Voice support</li></ul><h3>Improvements</h3><ul><li>Reset TTS parameters to defaults button</li><li>Fixed audio export error when overwriting an existing file</li></ul>
             ]]></description>
 
             <pubDate>Wed, 18 Feb 2026 19:35:21 +0700</pubDate>
