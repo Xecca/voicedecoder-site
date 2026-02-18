@@ -17,6 +17,28 @@
         <description>Updates for Voice Decoder</description>
         <language>en</language>
 
+        <!-- Version 1.0.0 -->
+        <item>
+            <title>Version 1.0.0</title>
+            <sparkle:version>7</sparkle:version>
+            <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <description><![CDATA[
+                <h2>Voice Decoder 1.0.0</h2>
+
+                    <h3>Voice Decoder 1.0.0</h3><ul><li>Freemium model: free tier with 10 daily transcriptions and 30s recording limit, Pro license via Gumroad for unlimited access</li><li>License activation with Gumroad keys and promo codes</li><li>Final retranscription for improved text quality after recording</li><li>Segment timestamps in file transcription</li><li>Transcription history with search and export</li><li>Bug fixes and stability improvements</li></ul>
+            ]]></description>
+
+            <pubDate>Wed, 18 Feb 2026 10:19:13 +0700</pubDate>
+
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-1.0.0.dmg"
+                sparkle:edSignature="mOW1CAA16ps0pI+v4dlW5J0LbyRgR1wHiBWV4HRDc5yeuJG16m3YxaxkyXLSi9+w3erN5RoaAkx420EyhU0HCA=="
+                length="2303875"
+                type="application/octet-stream"/>
+        </item>
+
         <!-- Version 0.4.0 -->
         <item>
             <title>Version 0.4.0</title>
