@@ -23,12 +23,8 @@
             <sparkle:version>8</sparkle:version>
             <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 1.1.0</h2>
-
-                    <h3>Text-to-Speech</h3><ul><li>Speak transcription text and custom text aloud using macOS system voices</li><li>Export audio to M4A with adjustable speed</li><li>Word highlighting during playback</li><li>TTS settings: voice selection (RU/EN), speed, pitch, volume, paragraph pause</li><li>Personal Voice support</li></ul><h3>Improvements</h3><ul><li>Reset TTS parameters to defaults button</li><li>Fixed audio export error when overwriting an existing file</li></ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/1.1.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/1.1.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Wed, 18 Feb 2026 19:35:21 +0700</pubDate>
 
@@ -45,12 +41,8 @@
             <sparkle:version>7</sparkle:version>
             <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 1.0.0</h2>
-
-                    <h3>Voice Decoder 1.0.0</h3><ul><li>Freemium model: free tier with 10 daily transcriptions and 30s recording limit, Pro license via Gumroad for unlimited access</li><li>License activation with Gumroad keys and promo codes</li><li>Final retranscription for improved text quality after recording</li><li>Segment timestamps in file transcription</li><li>Transcription history with search and export</li><li>Bug fixes and stability improvements</li></ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/1.0.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/1.0.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Wed, 18 Feb 2026 10:19:13 +0700</pubDate>
 
@@ -67,12 +59,8 @@
             <sparkle:version>6</sparkle:version>
             <sparkle:shortVersionString>0.4.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 0.4.0</h2>
-
-                    <h3>Website</h3><ul><li>Release Log page with full version history</li><li>Download links for all previous versions</li></ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.4.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.4.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Mon, 16 Feb 2026 19:09:01 +0700</pubDate>
 
@@ -89,12 +77,8 @@
             <sparkle:version>5</sparkle:version>
             <sparkle:shortVersionString>0.3.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 0.3.1</h2>
-
-                    <h3>Обновление</h3><ul><li>Улучшения и исправления</li></ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.3.1-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.3.1-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Mon, 16 Feb 2026 15:59:47 +0700</pubDate>
 
@@ -111,24 +95,8 @@
             <sparkle:version>4</sparkle:version>
             <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 0.3.0</h2>
-
-                <h3>Translation</h3>
-                <ul>
-                    <li>Translate transcription results using Apple Translation (on-device)</li>
-                    <li>Toggle between original and translated text</li>
-                    <li>Translation language configurable in Settings</li>
-                </ul>
-
-                <h3>Improvements</h3>
-                <ul>
-                    <li>Fixed file transcription window loading state</li>
-                    <li>Better onboarding visibility on first launch</li>
-                    <li>Fixed translation cache when changing target language</li>
-                </ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.3.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.3.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Fri, 14 Feb 2026 23:00:00 +0000</pubDate>
 
@@ -145,16 +113,8 @@
             <sparkle:version>3</sparkle:version>
             <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 0.2.1</h2>
-
-                <h3>App Icon</h3>
-                <ul>
-                    <li>Custom app icon matching the website design</li>
-                    <li>Icon now displays correctly in About and Sparkle dialogs</li>
-                </ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.2.1-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.2.1-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Sat, 14 Feb 2026 22:00:00 +0000</pubDate>
 
@@ -171,17 +131,8 @@
             <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>0.2.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-
-            <description><![CDATA[
-                <h2>Voice Decoder 0.2.0</h2>
-
-                <h3>Auto-Updates</h3>
-                <ul>
-                    <li>Sparkle 2.x integration for seamless updates</li>
-                    <li>"Check for Updates" in menu bar and About tab</li>
-                    <li>Automatic update checks on launch</li>
-                </ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.2.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.2.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Sat, 14 Feb 2026 18:00:00 +0000</pubDate>
 
@@ -192,49 +143,15 @@
                 type="application/octet-stream"/>
         </item>
 
-        <!-- Initial Release -->
+        <!-- Version 0.1.0 -->
         <item>
             <title>Version 0.1.0</title>
             <sparkle:version>1</sparkle:version>
             <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
 
-            <description><![CDATA[
-                <h2>Voice Decoder 0.1.0 — Initial Release</h2>
-
-                <h3>Real-Time Transcription</h3>
-                <ul>
-                    <li>Live voice-to-text powered by whisper.cpp</li>
-                    <li>Sub-second latency with Apple Neural Engine</li>
-                    <li>Voice Activity Detection (VAD) for accurate speech segmentation</li>
-                </ul>
-
-                <h3>Language Support</h3>
-                <ul>
-                    <li>Russian and English transcription</li>
-                    <li>Auto-detect mode with language switching</li>
-                </ul>
-
-                <h3>System Integration</h3>
-                <ul>
-                    <li>Global hotkey (⇧⌘Space) works in any application</li>
-                    <li>Automatic text insertion at cursor position</li>
-                    <li>Non-activating floating panel</li>
-                </ul>
-
-                <h3>File Transcription</h3>
-                <ul>
-                    <li>Audio files: MP3, WAV, M4A, FLAC, OGG</li>
-                    <li>Video files: MP4, MOV, MKV, WebM</li>
-                    <li>Batch processing with progress indication</li>
-                </ul>
-
-                <h3>Custom Dictionary</h3>
-                <ul>
-                    <li>Recognition terms for improved accuracy</li>
-                    <li>Post-processing replacements</li>
-                </ul>
-            ]]></description>
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/0.1.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/0.1.0-ru.html</sparkle:releaseNotesLink>
 
             <pubDate>Sat, 14 Feb 2026 12:00:00 +0000</pubDate>
 

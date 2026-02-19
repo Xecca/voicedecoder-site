@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #1a1a24;
+            --text: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #ffffff;
+                --text: #1a1a2e;
+                --text-secondary: #555566;
+                --accent: #4f46e5;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        h3:first-child {
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 3px;
+            color: var(--text-secondary);
+        }
+        p {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Voice Decoder 1.1.0</h2>
+    <h3>Text-to-Speech</h3><ul><li>Speak transcription text and custom text aloud using macOS system voices</li><li>Export audio to M4A with adjustable speed</li><li>Word highlighting during playback</li><li>TTS settings: voice selection (RU/EN), speed, pitch, volume, paragraph pause</li><li>Personal Voice support</li></ul><h3>Improvements</h3><ul><li>Reset TTS parameters to defaults button</li><li>Fixed audio export error when overwriting an existing file</li></ul>
+</body>
+</html>

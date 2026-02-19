@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #1a1a24;
+            --text: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #ffffff;
+                --text: #1a1a2e;
+                --text-secondary: #555566;
+                --accent: #4f46e5;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        h3:first-child {
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 3px;
+            color: var(--text-secondary);
+        }
+        p {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Voice Decoder 0.1.0</h2>
+    <h3>Real-Time Transcription</h3><ul><li>Live voice-to-text powered by whisper.cpp</li><li>Sub-second latency with Apple Neural Engine</li><li>Voice Activity Detection (VAD)</li></ul><h3>Language Support</h3><ul><li>Russian and English transcription</li><li>Auto-detect mode with language switching</li></ul><h3>System Integration</h3><ul><li>Global hotkey works in any application</li><li>Automatic text insertion at cursor position</li><li>Non-activating floating panel</li></ul><h3>File Transcription</h3><ul><li>Audio: MP3, WAV, M4A, FLAC, OGG</li><li>Video: MP4, MOV, MKV, WebM</li><li>Batch processing with progress indication</li></ul>
+</body>
+</html>
