@@ -17,6 +17,25 @@
         <description>Updates for Voice Decoder</description>
         <language>en</language>
 
+        <!-- Version 1.2.0 -->
+        <item>
+            <title>Version 1.2.0</title>
+            <sparkle:version>9</sparkle:version>
+            <sparkle:shortVersionString>1.2.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+
+            <sparkle:releaseNotesLink xml:lang="en">https://voicedecoder.redorcdron.space/releases/notes/1.2.0-en.html</sparkle:releaseNotesLink>
+            <sparkle:releaseNotesLink xml:lang="ru">https://voicedecoder.redorcdron.space/releases/notes/1.2.0-ru.html</sparkle:releaseNotesLink>
+
+            <pubDate>Sat, 21 Feb 2026 13:05:02 +0700</pubDate>
+
+            <enclosure
+                url="https://voicedecoder.redorcdron.space/releases/VoiceDecoder-1.2.0.dmg"
+                sparkle:edSignature="bTL/FD5HA7KBTK4E56Rod+ExFExime5VRUoM3ZcfRgf7zfjSLayfBPbyyKrNY3LMS3xAZnoo/oQ4uLvF1axnDA=="
+                length="7028656"
+                type="application/octet-stream"/>
+        </item>
+
         <!-- Version 1.1.0 -->
         <item>
             <title>Version 1.1.0</title>
