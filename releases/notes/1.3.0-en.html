@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #1a1a24;
+            --text: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #ffffff;
+                --text: #1a1a2e;
+                --text-secondary: #555566;
+                --accent: #4f46e5;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        h3:first-child {
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 3px;
+            color: var(--text-secondary);
+        }
+        p {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Voice Decoder 1.3.0</h2>
+    <h3>Neural Text-to-Speech (Qwen3-TTS)</h3><ul><li>Added Qwen3-TTS 0.6B neural TTS engine — natural-sounding speech for English and Russian</li><li>9 built-in voice presets (Chelsie, Ethan, and more)</li><li>Runs fully locally on Apple Silicon via MLX — no internet required</li><li>Generation parameters: temperature, top-p, repetition penalty, EOS bias</li><li>Automatic text chunking by sentences for stable long-text generation</li><li>Model pre-loading on app start for instant playback</li></ul><h3>Improvements</h3><ul><li>Fixed race condition when switching playback between history transcriptions</li><li>Play/Stop button state now correctly tracks the active transcription</li><li>Word highlighting works reliably when switching between recordings</li></ul>
+</body>
+</html>
