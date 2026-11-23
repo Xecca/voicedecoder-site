@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --bg: #1a1a24;
+            --text: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent: #6366f1;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #ffffff;
+                --text: #1a1a2e;
+                --text-secondary: #555566;
+                --accent: #4f46e5;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        h3:first-child {
+            margin-top: 0;
+        }
+        ul {
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+        li {
+            margin-bottom: 3px;
+            color: var(--text-secondary);
+        }
+        p {
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Voice Decoder 1.3.2</h2>
+    <h3>Транскрибация файлов</h3><ul><li>Добавлена поддержка видеофайлов <code>.ts</code> (MPEG-TS): записи ТВ и IPTV со звуком MP2 или AC-3 транскрибируются без ffmpeg</li><li>Файлы с расширением <code>.ts</code>, которые не являются видео (например, исходники TypeScript), отклоняются с понятной ошибкой</li><li>Обрезанные или ещё записывающиеся видео больше не роняют приложение и не съедают память при извлечении аудио</li><li>Исправлены падение и потеря файлов при перетаскивании нескольких файлов сразу</li></ul><h3>Обновления и поддержка</h3><ul><li>Сервер обновлений переехал на <code>voicedecoder.ponomarenko.dev</code> — исправлена ошибка «Update Error» при проверке обновлений</li><li>Кнопка «Report an issue» теперь открывает письмо на <code>support@ponomarenko.dev</code></li></ul><h3>Приватность и безопасность</h3><ul><li>Полные пути к файлам больше не пишутся в системный лог</li><li>ffmpeg ограничен локальными файлами: медиафайл больше не может заставить его обращаться к сети или читать другие файлы</li></ul><h3>Локализация</h3><ul><li>Добавлены недостающие переводы на испанский и русский</li></ul>
+</body>
+</html>
