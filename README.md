@@ -2,7 +2,7 @@
 
 Landing page для Voice Decoder.
 
-**Домен:** https://voicedecoder.redorcdron.space
+**Домен:** https://voicedecoder.ponomarenko.dev
 **GitHub Pages:** из папки `/docs`
 
 ## Структура
@@ -44,7 +44,7 @@ git push origin main
 
 ### 4. Подтвердить домен в GitHub
 1. GitHub → Settings → Pages
-2. Custom domain: `voicedecoder.redorcdron.space`
+2. Custom domain: `voicedecoder.ponomarenko.dev`
 3. Подождать проверку DNS (~5-10 мин)
 4. Включить **Enforce HTTPS**
 
