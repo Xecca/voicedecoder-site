@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://voicedecoder.redorcdron.space/</loc>
+        <loc>https://voicedecoder.ponomarenko.dev/</loc>
         <lastmod>2026-02-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://voicedecoder.redorcdron.space/changelog</loc>
+        <loc>https://voicedecoder.ponomarenko.dev/changelog</loc>
         <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://voicedecoder.redorcdron.space/privacy</loc>
+        <loc>https://voicedecoder.ponomarenko.dev/privacy</loc>
         <lastmod>2026-02-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     <url>
-        <loc>https://voicedecoder.redorcdron.space/terms</loc>
+        <loc>https://voicedecoder.ponomarenko.dev/terms</loc>
         <lastmod>2026-02-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
